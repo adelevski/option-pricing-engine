@@ -6,13 +6,13 @@
 
 
 void print_simple_results(
-    input& in,
-    sim_prices& sp,
-    cf_prices& cp
+    const input& in,
+    const sim_prices& sp,
+    const cf_prices& cp
 );
 
 
 void print_asian_results(
-    asian_input& in,
-    sim_prices& sp
+    const asian_input& in,
+    const sim_prices& sp
 );

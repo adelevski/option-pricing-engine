@@ -8,8 +8,7 @@
 class asian_option
 {
 public:
-    asian_option() {};
-    virtual ~asian_option() {};
+    virtual ~asian_option() = default;
     virtual double payoff_price(const std::vector<double>& S_vec) const = 0;
 };
 
@@ -18,11 +17,10 @@ class arithmetic_asian : public asian_option
 {
 public:
     arithmetic_asian(payoff& po);
-    virtual ~arithmetic_asian() {};
-    virtual double payoff_price(const std::vector<double>& S_vec) const;
+    double payoff_price(const std::vector<double>& S_vec) const override;
 
 private:
-    payoff& po_;
+    const payoff& po_;
 };
 
 
@@ -30,10 +28,8 @@ class geometric_asian : public asian_option
 {
 public:
     geometric_asian(payoff& po);
-    virtual ~geometric_asian() {};
-    virtual double payoff_price(const std::vector<double>& S_vec) const;
+    double payoff_price(const std::vector<double>& S_vec) const override;
 
 private:
-    payoff& po_;
+    const payoff& po_;
 };
-

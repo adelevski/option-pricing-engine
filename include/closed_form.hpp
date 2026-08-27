@@ -9,4 +9,4 @@ struct cf_prices
     double cf_put;
 };
 
-cf_prices black_scholes(input& in);
+cf_prices black_scholes(const input& in);

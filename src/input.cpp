@@ -1,13 +1,28 @@
 #include "input.hpp"
 
 #include <iostream>
+#include <stdexcept>
+
+
+namespace
+{
+template <typename T>
+void read_value(const char* prompt, T& value)
+{
+    std::cout << prompt;
+    if (!(std::cin >> value))
+    {
+        throw std::invalid_argument("input must match the requested type");
+    }
+}
+}
 
 
 input get_simple_input()
 {
-    input in;
-    char choice;
-    std::cout << "Debug input? [y/n]: "; std::cin >> choice;
+    input in{};
+    char choice{};
+    read_value("Debug input? [y/n]: ", choice);
     if (choice == 'y')
     {
         in.S = 100;
@@ -20,13 +35,13 @@ input get_simple_input()
     }
     else
     {
-        std::cout << "Spot price?: ";     std::cin >> in.S;
-        std::cout << "Strike price?: ";   std::cin >> in.K;
-        std::cout << "Years?: ";          std::cin >> in.T;
-        std::cout << "Volatility?: ";     std::cin >> in.v;
-        std::cout << "Dividend yield?: "; std::cin >> in.q;
-        std::cout << "RFR?: ";            std::cin >> in.r;
-        std::cout << "Simulations?: ";    std::cin >> in.num_sims;
+        read_value("Spot price?: ", in.S);
+        read_value("Strike price?: ", in.K);
+        read_value("Years?: ", in.T);
+        read_value("Volatility?: ", in.v);
+        read_value("Dividend yield?: ", in.q);
+        read_value("RFR?: ", in.r);
+        read_value("Simulations?: ", in.num_sims);
     }
 	std::cout << "One moment please!\n" << std::endl;
     return in;
@@ -35,9 +50,9 @@ input get_simple_input()
 
 asian_input get_asian_input()
 {
-    asian_input in;
-    char choice;
-    std::cout << "Arithmetic or Geometric pricing? [a/g]: "; std::cin >> choice;
+    asian_input in{};
+    char choice{};
+    read_value("Arithmetic or Geometric pricing? [a/g]: ", choice);
     if (choice == 'a')
     {
         in.type = 'a';
@@ -49,14 +64,15 @@ asian_input get_asian_input()
     else
     {
         std::cout << "Improper input, setting to arithmetic." << std::endl;
+        in.type = 'a';
     }
-    std::cout << "Spot price?: ";     std::cin >> in.S;
-    std::cout << "Strike price?: ";   std::cin >> in.K;
-    std::cout << "Years?: ";          std::cin >> in.T;
-    std::cout << "Volatility?: ";     std::cin >> in.v;
-    std::cout << "Dividend yield?: "; std::cin >> in.q;
-    std::cout << "RFR?: ";            std::cin >> in.r;
-    std::cout << "Simulations?: ";    std::cin >> in.num_sims;
+    read_value("Spot price?: ", in.S);
+    read_value("Strike price?: ", in.K);
+    read_value("Years?: ", in.T);
+    read_value("Volatility?: ", in.v);
+    read_value("Dividend yield?: ", in.q);
+    read_value("RFR?: ", in.r);
+    read_value("Simulations?: ", in.num_sims);
     std::cout << "One moment please!\n" << std::endl;
     return in;
 }

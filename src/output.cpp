@@ -6,9 +6,9 @@
 
 
 void print_simple_results(
-    input& in,
-    sim_prices& sp,
-    cf_prices& cp)
+    const input& in,
+    const sim_prices& sp,
+    const cf_prices& cp)
 {
     double call_error = cp.cf_call - sp.sim_call;
     double put_error = cp.cf_put - sp.sim_put;
@@ -27,8 +27,8 @@ void print_simple_results(
 
 
 void print_asian_results(
-    asian_input& in,
-    sim_prices& sp)
+    const asian_input& in,
+    const sim_prices& sp)
 {
     std::string type;
     if (in.type == 'a')

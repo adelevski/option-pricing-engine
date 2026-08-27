@@ -1,9 +1,9 @@
 #include "math_functions.hpp"
 
-#include <math.h>
+#include <cmath>
 
 
 double norm_cdf(double x)
 {
-    return std::erfc(-x / std::sqrt(2)) / 2;
+    return std::erfc(-x / std::sqrt(2.0)) / 2.0;
 }
