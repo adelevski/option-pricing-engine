@@ -180,4 +180,42 @@ int main()
         rejected_subdaily_maturity = true;
     }
     require(rejected_subdaily_maturity, "subdaily Asian maturity rejection");
+    const input deterministic{100.0, 100.0, 1.0, 0.0, 0.02, 0.05, 10};
+    const auto deterministic_cf = black_scholes(deterministic);
+    const auto deterministic_mc = euro_monte_carlo(deterministic, 42U);
+    require(near(deterministic_cf.cf_call, 100.0 * std::exp(-0.02)
+        - 100.0 * std::exp(-0.05)), "zero-volatility discounted payoff");
+    require(near(deterministic_cf.cf_call, deterministic_mc.sim_call),
+        "zero-volatility Monte Carlo agrees with closed form");
+    require(near(deterministic_cf.cf_put, 0.0), "zero-volatility put");
+
+    const input large_spot{1e308, 100.0, 1.0, 0.0, 0.0, 0.0, 10};
+    require(near(euro_monte_carlo(large_spot, 42U).sim_call / 1e308, 1.0),
+        "Monte Carlo mean does not overflow when the result is representable");
+    require(near(arithmetic.payoff_price({1e308, 1e308}) / 1e308, 1.0),
+        "arithmetic average does not overflow when the result is representable");
+
+    const input overflowing_discount{100.0, 100.0, 1.0, 0.2, 0.0, -1000.0, 1};
+    for (int method = 0; method < 3; ++method)
+    {
+        bool rejected_numeric_range = false;
+        try
+        {
+            if (method == 0) (void)black_scholes(overflowing_discount);
+            else if (method == 1) (void)euro_monte_carlo(overflowing_discount, 42U);
+            else
+            {
+                asian_input excessive_discount{};
+                static_cast<input&>(excessive_discount) = overflowing_discount;
+                excessive_discount.type = 'a';
+                (void)asian_monte_carlo(excessive_discount, 42U);
+            }
+        }
+        catch (const std::overflow_error&)
+        {
+            rejected_numeric_range = true;
+        }
+        require(rejected_numeric_range, "out-of-range models fail explicitly");
+    }
+
 }

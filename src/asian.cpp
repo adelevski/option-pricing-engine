@@ -1,7 +1,7 @@
 #include "asian.hpp"
+#include "numerics.hpp"
 
 #include <cmath>
-#include <numeric>
 #include <stdexcept>
 
 
@@ -16,17 +16,18 @@ double arithmetic_asian::payoff_price(const std::vector<double>& S_vec) const
     {
         throw std::invalid_argument("price path must not be empty");
     }
-    const auto period = S_vec.size();
+    double mean = 0.0;
+    std::size_t count = 0;
     for (const double price : S_vec)
     {
-        if (!std::isfinite(price))
+        if (!std::isfinite(price) || price < 0.0)
         {
-            throw std::invalid_argument("price path values must be finite");
+            throw std::invalid_argument("price path values must be finite and nonnegative");
         }
+        ++count;
+        mean += (price - mean) / static_cast<double>(count);
     }
-    const double sum = std::accumulate(S_vec.begin(), S_vec.end(), 0.0);
-    const double mean = sum / static_cast<double>(period);
-    return po_(mean);
+    return pricing_detail::finite(po_(mean));
 }
 
 
@@ -50,6 +51,6 @@ double geometric_asian::payoff_price(const std::vector<double>& S_vec) const
         }
         sum += std::log(price);
     }
-    const double mean = std::exp(sum / static_cast<double>(period));
-    return po_(mean);
+    const double mean = pricing_detail::positive_exp(sum / static_cast<double>(period));
+    return pricing_detail::finite(po_(mean));
 }

@@ -40,6 +40,12 @@ convergence, and invalid-input handling.
   rejected, and the terminal maturity is not an observation. That schedule
   must be specified before presenting Asian prices as production-grade results.
 
+- Zero volatility is supported as a deterministic discounted payoff.
+- Path and simulation averages avoid overflowing their intermediate sum. Models
+  that exceed the supported floating-point range raise an explicit error rather
+  than returning a nonfinite price. These checks do not establish accuracy for
+  extreme inputs.
+
 ## Possible future work
 
 - Implement digitals
