@@ -52,3 +52,8 @@ convergence, and invalid-input handling.
 - Implement double digitals
 - Implement American options
 - Implement closed form solutions for Asian options
+
+## License
+
+Project-authored source and documentation are licensed under [MIT](LICENSE).
+Any third-party dependencies retain their own licenses.

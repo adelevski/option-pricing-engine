@@ -23,8 +23,8 @@ from other finance repositories and any future dashboard.
 - Keep arithmetic path averaging and observation conventions explicit; do not
   claim production pricing accuracy, calibration, or unsupported market models.
 - Avoid copying private portfolios or provider data into tests or examples.
-- No source license is present. Resolve ownership and licensing before claiming
-  an open-source or Apache-2.0 release.
+- Project-authored source and documentation use [MIT](LICENSE). Preserve any
+  third-party license notices if external code is introduced.
 
 ## Working agreements
 
