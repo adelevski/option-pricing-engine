@@ -1,5 +1,10 @@
 # Option Pricing Engine
 
+Canonical source: [snowball-projects/option-pricing-engine](https://github.com/snowball-projects/option-pricing-engine).
+The repository moved from `adelevski/OptionPricingEngine` with its history and
+releases intact. The library and native CLI remain independently usable; a future
+lookout integration does not provide a browser build in this repository today.
+
 A lightweight option pricing engine that uses Monte Carlo methods to simulate asset prices for the duration of a given maturity, and uses the results to price call and put contracts. 
 
 Currently implemented:
