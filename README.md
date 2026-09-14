@@ -1,9 +1,12 @@
 # Option Pricing Engine
 
-Canonical source: [snowball-projects/option-pricing-engine](https://github.com/snowball-projects/option-pricing-engine).
-The repository moved from `adelevski/OptionPricingEngine` with its history and
-releases intact. The library and native CLI remain independently usable; a future
-lookout integration does not provide a browser build in this repository today.
+Canonical source: [adelevski/option-pricing-engine](https://github.com/adelevski/option-pricing-engine).
+
+A personal C++ learning and experimentation project by Nas Delevski. Returned
+to personal GitHub on September 13, 2026 with its history and releases intact.
+The library and native CLI remain independently usable. This is not a maintained
+snowball product or a planned dashboard integration. Existing license and
+copyright notices are preserved.
 
 A lightweight option pricing engine that uses Monte Carlo methods to simulate asset prices for the duration of a given maturity, and uses the results to price call and put contracts. 
 
